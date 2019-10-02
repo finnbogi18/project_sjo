@@ -1,0 +1,2 @@
+''' This program takes a .csv file that the user inputs, then the program reads the file and finds the average price for each month
+    and prints out the average price and the month of that price, finally it prints out the year-month-day of the highest price '''
