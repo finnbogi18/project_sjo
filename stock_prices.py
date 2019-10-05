@@ -35,8 +35,54 @@ def date_list(data_list):
     return date_list
 
 
+def get_monthly_average(data_list, date_list):
+    month_counter = 0
+    month_tuple = ()
+    average_list = []
+    acv_sum = 0
+    vol_sum = 0
+    for i in data_list[1:]:
+        temp_var = i[DATE]
+        temp_var = temp_var[:7]
+        if temp_var == date_list[month_counter]:
+            acv_sum += float(i[ADJ_CLOSE]) * float(i[VOLUME])
+            vol_sum += float(i[VOLUME])
+        else:
+            month_avg = acv_sum / vol_sum
+            month_tuple = (date_list[month_counter], month_avg)
+            average_list.append(month_tuple)
+            acv_sum = 0
+            vol_sum = 0
+            month_counter += 1
+
+    return average_list
+
+
+def find_highest(data_list):
+    highest_price = 0.00
+    high_date = ""
+    for i in data_list[1:]:
+        temp_var = float(i[ADJ_CLOSE])
+        if temp_var > highest_price:
+            highest_price = temp_var
+            high_date = i[DATE]
+
+    high_tuple = (highest_price, high_date)
+    return high_tuple
+
+
+def print_info(average_list, highest_tuple):
+    print("{:<10}{:>7}".format("Month", "Price"))
+    for i in average_list:
+        print("{:<10}{:>7.2f}".format(i[0], i[1]))
+
+
 filename = input("Enter filename: ")
 file_object = open_file(filename)
 data_list = get_data_list(file_object)
 date_list = date_list(data_list)
 print(date_list)
+average_list = get_monthly_average(data_list, date_list)
+print(average_list)
+highest_tuple = find_highest(data_list)
+print_info(average_list, highest_tuple)
