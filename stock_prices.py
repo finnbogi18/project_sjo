@@ -112,7 +112,7 @@ def print_info(average_list, highest_tuple):
     for i in average_list:
         print("{:<10}{:>7.2f}".format((i[0]),i[1]))
 
-    print("Highest price {} on day {:.2f}".format(highest_tuple[0], highest_tuple[1]))
+    print("Highest price {:.2f} on day {}".format(highest_tuple[0], highest_tuple[1]))
 
 
 def main(file_object):
