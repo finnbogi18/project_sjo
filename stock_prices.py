@@ -2,22 +2,37 @@
     the file and finds the average price for each month
     and prints out the average price and the month of that price, 
     finally it prints out the year-month-day of the highest price '''
-
-import csv
-
+DATE = 0
+ADJ_CLOSE = 5
+VOLUME = 6
 
 def open_file(filename):
     try:
-        with open(filename) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=",")
-            line_count = 0
-            temp_list = []
-            main_data = []
-            for row in csv_reader:
-                temp_list.append(row)
-                main_data.append(temp_list)
-                line_count += 1
-            return main_data, line_count
+        file_object = open(filename, "r")
+        return file_object
 
     except FileNotFoundError:
         print("Filename {} not found!".format(filename))
+
+
+def get_data_list(file_object):
+    data_list = []
+    for line_str in file_object:
+        data_list.append(line_str.strip().split(","))
+    return data_list
+
+def get_monthly_averages(data_list):
+    rows = len(data_list)
+    for i in rows:
+        
+
+def date_splitter(data_list, i):
+    row = i
+    date_list = data_list[row][DATE].split("-")
+    
+    return date_list
+
+
+filename = input("Enter filename: ")
+file_object = open_file(filename)
+data_list = get_data_list(file_object)
