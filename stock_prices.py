@@ -9,6 +9,7 @@ VOLUME = 6
 
 
 def open_file(filename):
+
     try:
         file_object = open(filename, "r")
         return file_object
@@ -24,7 +25,7 @@ def get_data_list(file_object):
     return data_list
 
 
-def date_list(data_list):
+def get_date_list(data_list):
     date_list = []
     for i in range(1, len(data_list)):
         temp_var = data_list[i][DATE]
@@ -84,13 +85,17 @@ def print_info(average_list, highest_tuple):
                                                   highest_tuple[1]))
 
 
-filename = input("Enter filename: ")
-file_object = open_file(filename)
-if file_object != None:
+def main(file_object):
     data_list = get_data_list(file_object)
-    date_list = date_list(data_list)
+    date_list = get_date_list(data_list)
     print(date_list)
     average_list = get_monthly_average(data_list, date_list)
     print(average_list)
     highest_tuple = find_highest(data_list)
     print_info(average_list, highest_tuple)
+
+
+filename = input("Enter filename: ")
+file_object = open_file(filename)
+if file_object != None:
+    main(file_object)
