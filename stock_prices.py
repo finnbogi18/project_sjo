@@ -2,9 +2,11 @@
     the file and finds the average price for each month
     and prints out the average price and the month of that price, 
     finally it prints out the year-month-day of the highest price '''
+
 DATE = 0
 ADJ_CLOSE = 5
 VOLUME = 6
+
 
 def open_file(filename):
     try:
@@ -21,18 +23,20 @@ def get_data_list(file_object):
         data_list.append(line_str.strip().split(","))
     return data_list
 
-def get_monthly_averages(data_list):
-    rows = len(data_list)
-    for i in rows:
-        
 
-def date_splitter(data_list, i):
-    row = i
-    date_list = data_list[row][DATE].split("-")
-    
+def date_list(data_list):
+    date_list = []
+    for i in range(1, len(data_list)):
+        temp_var = data_list[i][DATE]
+        temp_var = temp_var[:7]
+        if temp_var not in date_list:
+            date_list.append(temp_var)
+
     return date_list
 
 
 filename = input("Enter filename: ")
 file_object = open_file(filename)
 data_list = get_data_list(file_object)
+date_list = date_list(data_list)
+print(date_list)
